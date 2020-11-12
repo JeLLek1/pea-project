@@ -1,6 +1,7 @@
 #pragma once
-struct Job
+class Job
 {
+public:
 	unsigned int	number,
 					processingTime,
 					expectedEnd,

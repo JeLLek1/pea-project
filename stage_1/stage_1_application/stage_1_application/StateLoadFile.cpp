@@ -10,25 +10,27 @@ bool StateLoadFile::loadFile(std::string name)
 {
 	std::fstream file = std::fstream(name, std::ios::in);
 	if (!file.is_open()) {
-		std::cout << std::endl << "Nie uda³o siê otworzyæ pliku!";
+		std::cout << std::endl << "Nie udalo sie otworzyc pliku!";
 		return false;
 	}
+	std::string line;
 	size_t size;
-	file >> size;
-	if (file.fail()) {
-		std::cout << std::endl << "Nie uda³o siê odczytaæ wielkoœci struktury!";
+	std::getline(file, line);
+	std::istringstream is_ss(line);
+	is_ss >> size;
+	if (file.fail() || line.empty() || is_ss.fail()) {
+		std::cout << std::endl << "Nie udalo sie odczytac wielkosci struktury!";
 		file.close();
 		return false;
 	}
 	WeightedTardiness* weightedTardiness = new WeightedTardiness();
 	size_t i = 0;
-	std::string line;
 	while (i < size) {
 		std::getline(file, line);
 		if (file.fail() || line.empty()) {
 			break;
 		}
-		std::istringstream is_ss(line);
+		is_ss = std::istringstream(line);
 		unsigned int processingTime;
 		is_ss >> processingTime;
 		if (is_ss.fail()) {
@@ -50,9 +52,10 @@ bool StateLoadFile::loadFile(std::string name)
 	file.close();
 	if (weightedTardiness->countJobs() < size) {
 		delete weightedTardiness;
-		std::cout << std::endl << "Nieuda³o siê odczytaæ danych!";
+		std::cout << std::endl << "Nie udalo sie odczytac danych!";
 		return false;
 	}
+	weightedTardiness->display();
 	App::getInstance()->setWeightedTardiness(weightedTardiness);
 	return true;
 }
@@ -68,7 +71,7 @@ void StateLoadFile::process()
 	else {
 		std::cout << std::endl << "Wczytywanie pliku zakonczone niepowodzeniem";
 	}
-	std::cout << std::endl << "Nacisnij dowolny przycisk by pwrocic...";
+	std::cout << std::endl << std::endl << "Nacisnij dowolny przycisk by powrocic...";
 }
 
 bool StateLoadFile::handleInput(char key)

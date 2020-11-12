@@ -25,11 +25,14 @@
     <Filter Include="Pliki źródłowe\structures">
       <UniqueIdentifier>{e3366058-ccef-4985-a81d-ab53691adb23}</UniqueIdentifier>
     </Filter>
+    <Filter Include="Pliki nagłówkowe\processing">
+      <UniqueIdentifier>{48c36258-334f-4e50-8f1f-b6385a767e51}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Pliki źródłowe\processing">
+      <UniqueIdentifier>{1459c02d-cf80-465a-b1d6-469d95f507cc}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
-    <ClCompile Include="stage_1_application.cpp">
-      <Filter>Pliki źródłowe</Filter>
-    </ClCompile>
     <ClCompile Include="App.cpp">
       <Filter>Pliki źródłowe</Filter>
     </ClCompile>
@@ -46,6 +49,27 @@
       <Filter>Pliki źródłowe\states</Filter>
     </ClCompile>
     <ClCompile Include="WeightedTardiness.cpp">
+      <Filter>Pliki źródłowe\structures</Filter>
+    </ClCompile>
+    <ClCompile Include="StateRandom.cpp">
+      <Filter>Pliki źródłowe\states</Filter>
+    </ClCompile>
+    <ClCompile Include="RandomGenerator.cpp">
+      <Filter>Pliki źródłowe\processing</Filter>
+    </ClCompile>
+    <ClCompile Include="stage_1_application.cpp">
+      <Filter>Pliki źródłowe</Filter>
+    </ClCompile>
+    <ClCompile Include="StateMenuAlgorithms.cpp">
+      <Filter>Pliki źródłowe\states</Filter>
+    </ClCompile>
+    <ClCompile Include="StateDisplay.cpp">
+      <Filter>Pliki źródłowe\states</Filter>
+    </ClCompile>
+    <ClCompile Include="StateRunAlgorithm.cpp">
+      <Filter>Pliki źródłowe\states</Filter>
+    </ClCompile>
+    <ClCompile Include="JobsOrder.cpp">
       <Filter>Pliki źródłowe\structures</Filter>
     </ClCompile>
   </ItemGroup>
@@ -66,6 +90,27 @@
       <Filter>Pliki nagłówkowe\states</Filter>
     </ClInclude>
     <ClInclude Include="WeightedTardiness.h">
+      <Filter>Pliki nagłówkowe\structures</Filter>
+    </ClInclude>
+    <ClInclude Include="StateRandom.h">
+      <Filter>Pliki nagłówkowe\states</Filter>
+    </ClInclude>
+    <ClInclude Include="RandomGenerator.h">
+      <Filter>Pliki nagłówkowe\processing</Filter>
+    </ClInclude>
+    <ClInclude Include="StateMenuAlgorithms.h">
+      <Filter>Pliki nagłówkowe\states</Filter>
+    </ClInclude>
+    <ClInclude Include="StateDisplay.h">
+      <Filter>Pliki nagłówkowe\states</Filter>
+    </ClInclude>
+    <ClInclude Include="StateRunAlgorithm.h">
+      <Filter>Pliki nagłówkowe\states</Filter>
+    </ClInclude>
+    <ClInclude Include="JobsOrder.h">
+      <Filter>Pliki nagłówkowe\structures</Filter>
+    </ClInclude>
+    <ClInclude Include="IndexMask.h">
       <Filter>Pliki nagłówkowe\structures</Filter>
     </ClInclude>
   </ItemGroup>

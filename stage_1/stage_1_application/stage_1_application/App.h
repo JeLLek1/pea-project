@@ -6,6 +6,8 @@
 Klasa odpowiada za g³ówne dzia³anie aplikacji (zosta³a storzona jako singleton dla u³atwionego dostêpu)
 Zapewnia funkcjonalnoœæ zmiany statusu programu (jak poruszanie siê po menu),
 dodatkowo przechowywana jest g³ówna instancja problemu szeregowania zadañ dla póŸniejszych operacji
+
+Dodatkowo zawiera dwie metody statyczne czêsto wykorzystywane w aplikacji.
 */
 class App
 {
@@ -26,7 +28,7 @@ public:
 	//dodanie instancji klasy jobSequencing
 	void setWeightedTardiness(WeightedTardiness* weightedTardiness);
 	//pobranie instancji klasy jobSequencing
-	WeightedTardiness* getWeightedTardiness(WeightedTardiness* weightedTardiness);
+	WeightedTardiness* getWeightedTardiness();
 	//usuwanie funkcjonalnoœci niepotrzebnych dla singletounu
 	App(App& other) = delete;
 	void operator=(const App&) = delete;
@@ -38,4 +40,9 @@ public:
 	void displayAppInfo();
 	//pêtla g³ówna programu
 	void loop();
+
+	//zwraca liczbê cyfr w liczbie
+	static unsigned int countDigits(unsigned int number);
+	//wszytywanie liczby unsigned int z konsoli
+	static unsigned int cinLine(unsigned int min);
 };

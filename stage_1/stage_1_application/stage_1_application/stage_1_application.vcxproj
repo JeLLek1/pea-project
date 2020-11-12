@@ -142,6 +142,12 @@
     <ClCompile Include="App.cpp" />
     <ClCompile Include="AState.cpp" />
     <ClCompile Include="Job.cpp" />
+    <ClCompile Include="JobsOrder.cpp" />
+    <ClCompile Include="RandomGenerator.cpp" />
+    <ClCompile Include="StateDisplay.cpp" />
+    <ClCompile Include="StateMenuAlgorithms.cpp" />
+    <ClCompile Include="StateRandom.cpp" />
+    <ClCompile Include="StateRunAlgorithm.cpp" />
     <ClCompile Include="WeightedTardiness.cpp" />
     <ClCompile Include="stage_1_application.cpp" />
     <ClCompile Include="StateLoadFile.cpp" />
@@ -151,6 +157,13 @@
     <ClInclude Include="App.h" />
     <ClInclude Include="AState.h" />
     <ClInclude Include="Job.h" />
+    <ClInclude Include="JobsOrder.h" />
+    <ClInclude Include="RandomGenerator.h" />
+    <ClInclude Include="StateDisplay.h" />
+    <ClInclude Include="StateMenuAlgorithms.h" />
+    <ClInclude Include="StateRandom.h" />
+    <ClInclude Include="StateRunAlgorithm.h" />
+    <ClInclude Include="IndexMask.h" />
     <ClInclude Include="WeightedTardiness.h" />
     <ClInclude Include="StateLoadFile.h" />
     <ClInclude Include="StateMainMenu.h" />

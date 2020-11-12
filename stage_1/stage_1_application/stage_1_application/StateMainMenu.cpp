@@ -2,8 +2,11 @@
 #include <iostream>
 #include "App.h"
 #include "StateLoadFile.h"
+#include "StateRandom.h"
+#include "StateDisplay.h"
+#include "StateMenuAlgorithms.h"
 
-std::map<StateMainMenu::MenuStatuses, std::string> StateMainMenu::menuStatusesNames = {
+const std::map<StateMainMenu::MenuStatuses, std::string> StateMainMenu::menuStatusesNames = {
 	{MenuStatuses::LOAD_FILE, "Wczytaj plik"},
 	{MenuStatuses::RANDOM_GENERATE, "Wygeneruj losowe dane"},
 	{MenuStatuses::DISPLAY_DATA, "Wyswietl dane na ekranie"},
@@ -22,7 +25,7 @@ void StateMainMenu::process()
 		else {
 			std::cout << "    ";
 		}
-		std::cout << StateMainMenu::menuStatusesNames[state] << std::endl;
+		std::cout << StateMainMenu::menuStatusesNames.at(state) << std::endl;
 	}
 }
 
@@ -59,8 +62,13 @@ bool StateMainMenu::selectOtption()
 		App::getInstance()->pushState(new StateLoadFile());
 		break;
 	case MenuStatuses::RANDOM_GENERATE:
+		App::getInstance()->pushState(new StateRandom());
+		break;
+	case MenuStatuses::DISPLAY_DATA:
+		App::getInstance()->pushState(new StateDisplay());
 		break;
 	case MenuStatuses::RUN_ALGORITHM:
+		App::getInstance()->pushState(new StateMenuAlgorithms());
 		break;
 	case MenuStatuses::TIME_TESTS:
 		break;

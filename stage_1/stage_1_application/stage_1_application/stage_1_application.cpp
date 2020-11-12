@@ -12,6 +12,5 @@ int main()
 	App* app = App::getInstance();
 	app->pushState(new StateMainMenu());
 	app->loop();
-
 	return 0;
 }

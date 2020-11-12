@@ -2,12 +2,12 @@
 #include <conio.h>
 #include <iostream>
 #include <Windows.h>
+#undef max
 
 App* App::instance = nullptr;
 
 App::App()
 {
-
 }
 
 void App::popState()
@@ -33,7 +33,7 @@ void App::setWeightedTardiness(WeightedTardiness* weightedTardiness)
 	this->weightedTardiness = weightedTardiness;
 }
 
-WeightedTardiness* App::getWeightedTardiness(WeightedTardiness* weightedTardiness)
+WeightedTardiness* App::getWeightedTardiness()
 {
 	return this->weightedTardiness;
 }
@@ -71,4 +71,29 @@ void App::loop()
 			this->popState();
 		}
 	}
+}
+
+unsigned int App::countDigits(unsigned int number)
+{
+	unsigned int digits = 0;
+	do{
+		digits++;
+		number /= 10;
+	}while (number);
+
+	return digits;
+}
+
+unsigned int App::cinLine(unsigned int min)
+{
+	unsigned int value;
+	std::cin >> value;
+	while (std::cin.good() == false && value >= min)
+	{
+		std::cin.clear();
+		std::cin.ignore(std::numeric_limits<std::streamsize>::max(), '\n');
+		std::cout << "Podaj wartosc naturalna rowna conajmniej" << min << ": ";
+		std::cin >> value;
+	}
+	return value;
 }
