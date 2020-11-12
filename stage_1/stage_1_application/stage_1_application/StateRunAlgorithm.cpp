@@ -2,16 +2,19 @@
 #include <iostream>
 #include "App.h"
 
+//konstruktor z podanym typem algorytmu (stanem menu algorytmów)
 StateRunAlgorithm::StateRunAlgorithm(StateMenuAlgorithms::MenuStatuses state) : AState()
 {
 	this->state = state;
 }
 
+//przetwarzanie rz¹dañ i wyœwietlanie informacji na ekranie
 void StateRunAlgorithm::process()
 {
 	std::cout << "Uruchamianie algorytmu..." << std::endl;
 	switch (this->state)
 	{
+	//algorytm przegl¹du zupe³nego
 	case StateMenuAlgorithms::MenuStatuses::BRUTE_FORCE:
 	{
 		JobsOrder* order = App::getInstance()->getWeightedTardiness()->bruteforce();
@@ -20,6 +23,7 @@ void StateRunAlgorithm::process()
 		break;
 	}
 		break;
+	//algorytm programowania dynamicznego
 	case StateMenuAlgorithms::MenuStatuses::DYNAMIC_PROGRAMMING:
 	{
 		JobsOrder* order = App::getInstance()->getWeightedTardiness()->dynamicProgramming();
@@ -28,16 +32,20 @@ void StateRunAlgorithm::process()
 		break;
 	}
 		break;
-	case StateMenuAlgorithms::MenuStatuses::B_AND_B_1:
+	//algorytm B&B przeszukiwania wszerz
+	case StateMenuAlgorithms::MenuStatuses::B_AND_B_BFS:
 		break;
-	case StateMenuAlgorithms::MenuStatuses::B_AND_B_2:
+	//algorytm B&B przeszukwiania typu najpierw najlepszy
+	case StateMenuAlgorithms::MenuStatuses::B_AND_B_BEST_FIRST:
 		break;
 	}
 
 	std::cout << std::endl << "Nacisnij dowolny klawisz by powrocic...";
 }
 
+//przetwarzanie wciœniêtych klawiszy
 bool StateRunAlgorithm::handleInput(char key)
 {
+	//stan ma siê zakoñczyæ po wciœniêciu dowolnego klawisza
 	return false;
 }

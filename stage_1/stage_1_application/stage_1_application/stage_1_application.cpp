@@ -9,8 +9,12 @@
 
 int main()
 {
+	//pobranie instancji aplikacji
 	App* app = App::getInstance();
+	//dodanie głównego menu jako obecny stan aplikacji
 	app->pushState(new StateMainMenu());
+	//uruchomienie pętli głównej
 	app->loop();
+
 	return 0;
 }

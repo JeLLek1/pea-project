@@ -163,7 +163,7 @@
     <ClInclude Include="StateMenuAlgorithms.h" />
     <ClInclude Include="StateRandom.h" />
     <ClInclude Include="StateRunAlgorithm.h" />
-    <ClInclude Include="IndexMask.h" />
+    <ClInclude Include="DbSubset.h" />
     <ClInclude Include="WeightedTardiness.h" />
     <ClInclude Include="StateLoadFile.h" />
     <ClInclude Include="StateMainMenu.h" />

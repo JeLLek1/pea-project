@@ -110,7 +110,7 @@
     <ClInclude Include="JobsOrder.h">
       <Filter>Pliki nagłówkowe\structures</Filter>
     </ClInclude>
-    <ClInclude Include="IndexMask.h">
+    <ClInclude Include="DbSubset.h">
       <Filter>Pliki nagłówkowe\structures</Filter>
     </ClInclude>
   </ItemGroup>

@@ -2,14 +2,16 @@
 #include <conio.h>
 #include <iostream>
 #include <Windows.h>
+//usuniêcie dyrektywy max (k³óci siê z std::numeric_limits<>::max())
 #undef max
 
+//instancja singletonu
 App* App::instance = nullptr;
 
-App::App()
-{
-}
+//konstruktor
+App::App(){}
 
+//zdjêcie ze stosu aktualnie wykonywanej akcji
 void App::popState()
 {
 	if (this->states.empty()) return;
@@ -18,6 +20,7 @@ void App::popState()
 	this->states.pop();
 }
 
+//pobranie aktualnego stanu ze stosu
 AState* App::getCurrentState()
 {
 	if (this->states.empty()) return nullptr;
@@ -25,19 +28,23 @@ AState* App::getCurrentState()
 	return this->states.top();
 }
 
+//dodanie instancji klasy jobSequencing
 void App::setWeightedTardiness(WeightedTardiness* weightedTardiness)
 {
+	//usuniêcie starego problemu je¿eli istnia³
 	if (this->weightedTardiness != nullptr) {
 		delete this->weightedTardiness;
 	}
 	this->weightedTardiness = weightedTardiness;
 }
 
+//pobranie instancji klasy jobSequencing
 WeightedTardiness* App::getWeightedTardiness()
 {
 	return this->weightedTardiness;
 }
 
+//pobranie instancji singletonu aplikacji
 App* App::getInstance()
 {
 	if (App::instance == nullptr) {
@@ -46,11 +53,13 @@ App* App::getInstance()
 	return App::instance;
 }
 
+//dodanie nowego stanu aplikacji do stosu
 void App::pushState(AState* state)
 {
 	this->states.push(state);
 }
 
+//wyœwietlanie informacji o programie dla ka¿dego stanu
 void App::displayAppInfo()
 {
 	std::cout << "=================================="	<< std::endl;
@@ -61,18 +70,26 @@ void App::displayAppInfo()
 	std::cout << "=================================="	<< std::endl << std::endl;
 }
 
+//pêtla g³ówna programu
 void App::loop()
 {
+	//dopuki kolejka stanów aplikacji nie jest pusta
 	while (!this->states.empty()) {
+		//czyszczenie ekranu
 		system("CLS");
+		//wyœwietlenie informacji o programie
 		this->displayAppInfo();
+		//wyœwietlenie i rpzetworzenie obednego stanu aplikacji
 		this->getCurrentState()->process();
+		//przetwarzanie pobranych znaków u¿ytych w konsoli dla danego stanu
 		if (!this->getCurrentState()->handleInput(_getch())) {
+			//je¿eli stan zwróci³ informacjê o tym ¿e ma byæ zakoñczony to zdjêcie ze stosu
 			this->popState();
 		}
 	}
 }
 
+//zwraca liczbê cyfr w liczbie
 unsigned int App::countDigits(unsigned int number)
 {
 	unsigned int digits = 0;
@@ -84,10 +101,13 @@ unsigned int App::countDigits(unsigned int number)
 	return digits;
 }
 
+//wszytywanie liczby unsigned int z konsoli
 unsigned int App::cinLine(unsigned int min)
 {
 	unsigned int value;
+	//pobranie wartoœci
 	std::cin >> value;
+	//powtarzanie pobrania wartoœci dopuki nie jest zgodna z za³o¿eniami
 	while (std::cin.good() == false && value >= min)
 	{
 		std::cin.clear();
