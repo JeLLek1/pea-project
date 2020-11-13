@@ -1,4 +1,5 @@
 #include "StateRunAlgorithm.h"
+#include <chrono>
 #include <iostream>
 #include "App.h"
 
@@ -17,8 +18,11 @@ void StateRunAlgorithm::process()
 	//algorytm przegl¹du zupe³nego
 	case StateMenuAlgorithms::MenuStatuses::BRUTE_FORCE:
 	{
+		std::chrono::high_resolution_clock::time_point start = std::chrono::high_resolution_clock::now();
 		JobsOrder* order = App::getInstance()->getWeightedTardiness()->bruteforce();
+		std::chrono::high_resolution_clock::time_point end = std::chrono::high_resolution_clock::now();
 		order->display();
+		std::cout << std::endl << "Czas wykonywania: " << 0.001 * std::chrono::duration_cast<std::chrono::microseconds>(end - start).count() << " ms";
 		delete order;
 		break;
 	}
@@ -26,24 +30,33 @@ void StateRunAlgorithm::process()
 	//algorytm programowania dynamicznego
 	case StateMenuAlgorithms::MenuStatuses::DYNAMIC_PROGRAMMING:
 	{
+		std::chrono::high_resolution_clock::time_point start = std::chrono::high_resolution_clock::now();
 		JobsOrder* order = App::getInstance()->getWeightedTardiness()->dynamicProgramming();
+		std::chrono::high_resolution_clock::time_point end = std::chrono::high_resolution_clock::now();
 		order->display();
+		std::cout << std::endl << "Czas wykonywania: " << 0.001 * std::chrono::duration_cast<std::chrono::microseconds>(end - start).count() << " ms";
 		delete order;
 	}
 		break;
 	//algorytm B&B przeszukiwania wszerz
 	case StateMenuAlgorithms::MenuStatuses::B_AND_B_BFS:
 	{
+		std::chrono::high_resolution_clock::time_point start = std::chrono::high_resolution_clock::now();
 		JobsOrder* order = App::getInstance()->getWeightedTardiness()->BandBBFS();
+		std::chrono::high_resolution_clock::time_point end = std::chrono::high_resolution_clock::now();
 		order->display();
+		std::cout << std::endl << "Czas wykonywania: " << 0.001 * std::chrono::duration_cast<std::chrono::microseconds>(end - start).count() << " ms";
 		delete order;
 	}
 		break;
 	//algorytm B&B przeszukwiania typu najpierw najlepszy
 	case StateMenuAlgorithms::MenuStatuses::B_AND_B_BEST_FIRST:
 	{
+		std::chrono::high_resolution_clock::time_point start = std::chrono::high_resolution_clock::now();
 		JobsOrder* order = App::getInstance()->getWeightedTardiness()->BandBBestFirst();
+		std::chrono::high_resolution_clock::time_point end = std::chrono::high_resolution_clock::now();
 		order->display();
+		std::cout << std::endl << "Czas wykonywania: " << 0.001 * std::chrono::duration_cast<std::chrono::microseconds>(end - start).count() << " ms";
 		delete order;
 	}
 		break;
