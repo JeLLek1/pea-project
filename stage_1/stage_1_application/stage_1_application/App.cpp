@@ -108,11 +108,11 @@ unsigned int App::cinLine(unsigned int min)
 	//pobranie wartoœci
 	std::cin >> value;
 	//powtarzanie pobrania wartoœci dopuki nie jest zgodna z za³o¿eniami
-	while (std::cin.good() == false && value >= min)
+	while (std::cin.good() == false || value < min)
 	{
 		std::cin.clear();
 		std::cin.ignore(std::numeric_limits<std::streamsize>::max(), '\n');
-		std::cout << "Podaj wartosc naturalna rowna conajmniej" << min << ": ";
+		std::cout << std::endl << "Podaj wartosc naturalna rowna conajmniej " << min << ": ";
 		std::cin >> value;
 	}
 	return value;

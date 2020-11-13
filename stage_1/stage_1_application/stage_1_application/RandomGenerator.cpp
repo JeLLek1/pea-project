@@ -23,7 +23,7 @@ RandomGenerator* RandomGenerator::getInstance()
     return RandomGenerator::instance;
 }
 //generowanie problemu szeregowania zadañ
-WeightedTardiness* RandomGenerator::generateWeightedTardiness(unsigned int size)
+WeightedTardiness* RandomGenerator::generateWeightedTardiness(size_t size)
 {
     //lista wygenerowanych czasów przetwarzania
     std::vector<unsigned int> processingTimes;

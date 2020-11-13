@@ -130,24 +130,27 @@
       <SDLCheck>true</SDLCheck>
       <PreprocessorDefinitions>NDEBUG;_CONSOLE;%(PreprocessorDefinitions)</PreprocessorDefinitions>
       <ConformanceMode>true</ConformanceMode>
+      <FavorSizeOrSpeed>Speed</FavorSizeOrSpeed>
     </ClCompile>
     <Link>
       <SubSystem>Console</SubSystem>
       <EnableCOMDATFolding>true</EnableCOMDATFolding>
       <OptimizeReferences>true</OptimizeReferences>
-      <GenerateDebugInformation>true</GenerateDebugInformation>
+      <GenerateDebugInformation>false</GenerateDebugInformation>
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
     <ClCompile Include="App.cpp" />
     <ClCompile Include="AState.cpp" />
     <ClCompile Include="Job.cpp" />
+    <ClCompile Include="JobNode.cpp" />
     <ClCompile Include="JobsOrder.cpp" />
     <ClCompile Include="RandomGenerator.cpp" />
     <ClCompile Include="StateDisplay.cpp" />
     <ClCompile Include="StateMenuAlgorithms.cpp" />
     <ClCompile Include="StateRandom.cpp" />
     <ClCompile Include="StateRunAlgorithm.cpp" />
+    <ClCompile Include="StateTimeTests.cpp" />
     <ClCompile Include="WeightedTardiness.cpp" />
     <ClCompile Include="stage_1_application.cpp" />
     <ClCompile Include="StateLoadFile.cpp" />
@@ -157,6 +160,7 @@
     <ClInclude Include="App.h" />
     <ClInclude Include="AState.h" />
     <ClInclude Include="Job.h" />
+    <ClInclude Include="JobNode.h" />
     <ClInclude Include="JobsOrder.h" />
     <ClInclude Include="RandomGenerator.h" />
     <ClInclude Include="StateDisplay.h" />
@@ -164,6 +168,7 @@
     <ClInclude Include="StateRandom.h" />
     <ClInclude Include="StateRunAlgorithm.h" />
     <ClInclude Include="DbSubset.h" />
+    <ClInclude Include="StateTimeTests.h" />
     <ClInclude Include="WeightedTardiness.h" />
     <ClInclude Include="StateLoadFile.h" />
     <ClInclude Include="StateMainMenu.h" />

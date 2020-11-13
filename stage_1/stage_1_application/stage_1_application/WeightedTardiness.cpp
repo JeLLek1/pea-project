@@ -1,6 +1,7 @@
 #include "WeightedTardiness.h"
 #include <iostream>
 #include <iomanip>
+#include <queue>
 #include "App.h"
 //dodanie zadania do listy zadañ
 void WeightedTardiness::pushJob(Job* job)
@@ -145,6 +146,7 @@ void WeightedTardiness::dpSubsets(
 		this->dpSubsets(subSets, subsetSize, end, i+1, index+1, mask + (size_t(1) << i));
 	}
 }
+
 //metoda g³ówna metody dynamicznego programowania
 JobsOrder* WeightedTardiness::dynamicProgramming()
 {
@@ -199,6 +201,194 @@ JobsOrder* WeightedTardiness::dynamicProgramming()
 
 	delete indexes;
 
+	return best;
+}
+//granica górna przeszukiwanie zach³anne + iloœæ elementów nieprzetworzonych
+/*unsigned int WeightedTardiness::BandBupper(JobNode* node, size_t current, unsigned int totalTime)
+{
+	size_t countJobs = this->countJobs();
+	bool* subended = new bool[countJobs];
+	std::copy(node->ended, node->ended + countJobs, subended);
+
+	//wyliczona kara
+	unsigned int punishment = 0;
+	//czas przetwarzania
+	unsigned int time = totalTime;
+	//Ÿle dzia³a za d³ugi (próba brania tych najwiêkszych/najmniejszych z³o¿onoœæ n^2)
+	for (size_t i = 0; i < this->countJobs() - node->jobsOrder->size()-1; i++) {
+		bool first = true;
+		//obecna maksymalne opóŸnienie
+		unsigned int singlePunisment = 0;
+		unsigned int singleTime = 0;
+		size_t index = 0;
+		//dla ka¿dego wierzcho³ka niedodanego dodawane jest zadanie z najwiêkszym opóŸnieniem
+		for (size_t j = 0; j < countJobs; j++) {
+			if (!subended[j]) {
+				singleTime = time+this->jobs[j]->processingTime;
+				unsigned int tmpPunishment = this->jobs[j]->getWeightedDelay(singleTime);
+				if (first) {
+					first = false;
+					singlePunisment = tmpPunishment;
+					index = j;
+				}
+				else if(tmpPunishment<singlePunisment){
+					singlePunisment = tmpPunishment;
+					index = j;
+				}
+			}
+		}
+		punishment += singlePunisment;
+		time += this->jobs[index]->processingTime;
+		subended[index] = true;
+	}
+	//przez przez nieu¿yte wierzcho³ki (proste pobranie jednego z rozwi¹zañ)
+
+	delete[] subended;
+	return punishment+1;
+}*/
+
+unsigned int WeightedTardiness::BandBupper()
+{
+	size_t countJobs = this->countJobs();
+	bool* subended = new bool[countJobs];
+	std::fill(subended, subended + countJobs, 0);
+
+	//wyliczona kara
+	unsigned int punishment = 0;
+	//czas przetwarzania
+	unsigned int time = 0;
+	//(próba brania tych najwiêkszych)
+	for (size_t i = 0; i < this->countJobs(); i++) {
+		bool first = true;
+		//obecna maksymalne opóŸnienie
+		unsigned int singlePunisment = 0;
+		unsigned int singleTime = 0;
+		size_t index = 0;
+		//dla ka¿dego wierzcho³ka niedodanego dodawane jest zadanie z najwiêkszym opóŸnieniem
+		for (size_t j = 0; j < countJobs; j++) {
+			if (!subended[j]) {
+				singleTime = time + this->jobs[j]->processingTime;
+				unsigned int tmpPunishment = this->jobs[j]->getWeightedDelay(singleTime);
+				if (first) {
+					first = false;
+					singlePunisment = tmpPunishment;
+					index = j;
+				}
+				else if (tmpPunishment < singlePunisment) {
+					singlePunisment = tmpPunishment;
+					index = j;
+				}
+			}
+		}
+		punishment += singlePunisment;
+		time += this->jobs[index]->processingTime;
+		subended[index] = true;
+	}
+	//przez przez nieu¿yte wierzcho³ki (proste pobranie jednego z rozwi¹zañ)
+
+	delete[] subended;
+	return punishment + 1;
+}
+
+//dolna granica (wszyskie elementy wykonane w czasie aktualnym)
+unsigned int WeightedTardiness::BandBlower(JobNode* node, size_t current, unsigned int totalTime)
+{
+	size_t countJobs = this->countJobs();
+	bool* subended = new bool[countJobs];
+	std::copy(node->ended, node->ended + countJobs, subended);
+	subended[current] = true;
+	//wyliczona kara
+	unsigned int punishment = 0;
+	//minimalna kara z danego wieszcho³ka
+	for (size_t i = 0; i < countJobs; i++) {
+		if (!subended[i]) {
+			punishment += this->jobs[i]->getWeightedDelay(totalTime);
+		}
+	}
+	delete[] subended;
+	return punishment;
+}
+//B&B Wszerz
+JobsOrder* WeightedTardiness::BandBBFS()
+{
+	//struktura przechowuj¹ca najlepszy wynik
+	JobsOrder* best = new JobsOrder();
+	//kolejka przeszukiwania wszerz
+	std::queue<JobNode*> queue;
+	queue.push(new JobNode(this->countJobs()));
+	best->totalLoos = this->BandBupper();
+	//dopóki kolejka nie jest pusta
+	while (!queue.empty()) {
+		//pobranie z koleik pierwszego wêz³a
+		JobNode* currentNode = queue.front();
+		queue.pop();
+		//dla ka¿dego zadania
+		for (size_t i = 0; i < this->countJobs(); i++) {
+			//je¿eli zadanie nie by³o w obecnym wêŸle pobrane
+			if (!currentNode->ended[i]) {
+				//czas wykonywania zadania
+				unsigned int totalTime = currentNode->time + this->jobs[i]->processingTime;
+				//obecna kara
+				unsigned int punishment = currentNode->punishment + this->jobs[i]->getWeightedDelay(totalTime);
+				//górna granica
+				if (currentNode->jobsOrder->size()==this->countJobs()-1 && punishment < best->totalLoos) {
+					best->setOrder(currentNode->jobsOrder, punishment, i);
+				}
+				//dolna granica
+				if (punishment + this->BandBlower(currentNode, i, totalTime) < best->totalLoos) {
+					queue.push(new JobNode(currentNode->jobsOrder, i, totalTime, punishment, currentNode->ended, this->countJobs()));
+				}
+			}
+		}
+		//usuniêcie wierzcho³ka
+		delete currentNode;
+	}
+	return best;
+}
+//B&B najpierw najlepszy
+JobsOrder* WeightedTardiness::BandBBestFirst()
+{
+
+	//lambda porównania kolejki priorytetowej
+	auto compare = [](JobNode* lhs, JobNode* rhs) {
+		return lhs->upperBound < rhs->upperBound;
+	};
+	//struktura przechowuj¹ca najlepszy wynik
+	JobsOrder* best = new JobsOrder();
+	//kolejka priorytetowa
+	std::priority_queue<JobNode*, std::vector<JobNode*>, decltype(compare)> queue(compare);
+	queue.push(new JobNode(this->countJobs()));
+	best->totalLoos = this->BandBupper();
+	//dopóki kolejka nie jest pusta
+	while (!queue.empty()) {
+		//pobranie z koleik pierwszego wêz³a
+		JobNode* currentNode = queue.top();
+		queue.pop();
+		//dolna granica
+		if (currentNode->punishment + this->BandBlower(currentNode, currentNode->current, currentNode->time) < best->totalLoos) {
+			//dla ka¿dego zadania
+			for (size_t i = 0; i < this->countJobs(); i++) {
+				//je¿eli zadanie nie by³o w obecnym wêŸle pobrane
+				if (!currentNode->ended[i]) {
+					//czas wykonywania zadania
+					unsigned int totalTime = currentNode->time + this->jobs[i]->processingTime;
+					//obecna kara
+					unsigned int punishment = currentNode->punishment + this->jobs[i]->getWeightedDelay(totalTime);
+					//górna granica
+					if (currentNode->jobsOrder->size() == this->countJobs() - 1 && punishment < best->totalLoos) {
+						best->setOrder(currentNode->jobsOrder, punishment, i);
+					}
+					//dolna granica
+					unsigned int lowerBound = punishment + this->BandBlower(currentNode, i, totalTime);
+					if (lowerBound < best->totalLoos) {
+						queue.push(new JobNode(currentNode->jobsOrder, i, totalTime, punishment, currentNode->ended, this->countJobs(), lowerBound));
+					}
+				}
+			}
+		}
+		//usuniêcie node
+		delete currentNode;
+	}
 	return best;
 }
 //pobranie zadania o danym indeksie dla innych klas

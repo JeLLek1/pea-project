@@ -3,6 +3,7 @@
 #include "Job.h"
 #include "JobsOrder.h"
 #include "DbSubset.h"
+#include "JobNode.h"
 /*
 Klasa problemu szeregowania zadañ dla 
 */
@@ -21,6 +22,10 @@ private:
 		std::vector<std::vector<DbSubset>>& subSets,
 		size_t subsetSize, size_t end, size_t start = 0, size_t index = 0, size_t mask=0
 	);
+	//funkcja kosztu dla B&B (metod¹ zach³ann¹ wyszukiwanie tych zadañ które maj¹ najwiêszy obecny koszt)
+	unsigned int BandBupper();
+	//funkcja kosztu dla B&B (metod¹ zach³ann¹ wyszukiwanie tych zadañ które maj¹ najwiêszy obecny koszt)
+	unsigned int BandBlower(JobNode* node, size_t current, unsigned int totalTime);
 public:
 
 	//dodanie zadania do listy zadañ
@@ -33,6 +38,10 @@ public:
 	JobsOrder* bruteforce();
 	//metoda g³ówna metody dynamicznego programowania
 	JobsOrder* dynamicProgramming();
+	//B&B Wszerz
+	JobsOrder* BandBBFS();
+	//B&B Najpierw najlepszy
+	JobsOrder* BandBBestFirst();
 	//pobranie zadania o danym indeksie dla innych klas
 	Job* getJob(size_t index);
 	//obliczanie ca³kowitej straty dla podanej kolejnoœci zadañ

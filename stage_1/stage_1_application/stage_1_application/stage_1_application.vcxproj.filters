@@ -72,6 +72,12 @@
     <ClCompile Include="JobsOrder.cpp">
       <Filter>Pliki źródłowe\structures</Filter>
     </ClCompile>
+    <ClCompile Include="JobNode.cpp">
+      <Filter>Pliki źródłowe\structures</Filter>
+    </ClCompile>
+    <ClCompile Include="StateTimeTests.cpp">
+      <Filter>Pliki źródłowe\states</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="App.h">
@@ -112,6 +118,12 @@
     </ClInclude>
     <ClInclude Include="DbSubset.h">
       <Filter>Pliki nagłówkowe\structures</Filter>
+    </ClInclude>
+    <ClInclude Include="JobNode.h">
+      <Filter>Pliki nagłówkowe\structures</Filter>
+    </ClInclude>
+    <ClInclude Include="StateTimeTests.h">
+      <Filter>Pliki nagłówkowe\states</Filter>
     </ClInclude>
   </ItemGroup>
 </Project>

@@ -29,6 +29,6 @@ public:
 	static RandomGenerator* getInstance();
 
 	//generowanie problemu szeregowania zadañ
-	WeightedTardiness* generateWeightedTardiness(unsigned int size);
+	WeightedTardiness* generateWeightedTardiness(size_t size);
 };
 

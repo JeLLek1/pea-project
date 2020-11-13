@@ -15,10 +15,33 @@ void JobsOrder::setOrder(std::vector<size_t>* order, unsigned int loos)
 	if (this->order != nullptr) {
 		delete this->order;
 	}
-	//kopiowanie zawartoœci przekazanej listy
+	//kopiowanie zawartoœci przekazanej tablicy kolejnoœci
 	this->order = new std::vector<size_t>(*order);
 	//strata
 	this->totalLoos = loos;
+}
+void JobsOrder::setOrder(std::list<size_t>* order, unsigned int loos)
+{
+	//je¿eli by³a ju¿ jakaœ lista trzeba j¹ usun¹æ
+	if (this->order != nullptr) {
+		delete this->order;
+	}
+	//tworzenie wektora
+	this->order = new std::vector<size_t>(order->size());
+	//kopiowanie wartoœci z listy
+	size_t i = 0;
+	for (size_t const& index : *order) {
+		(*this->order)[i] = index;
+		i++;
+	}
+
+	//strata
+	this->totalLoos = loos;
+}
+void JobsOrder::setOrder(std::list<size_t>* order, unsigned int loos, size_t index)
+{
+	this->setOrder(order, loos);
+	this->order->push_back(index);
 }
 //wyœwietlanie
 void JobsOrder::display()
@@ -33,4 +56,9 @@ void JobsOrder::display()
 		std::cout << problem->getJob(jobIndex)->number << " ";
 	}
 	std::cout << std::endl;
+}
+
+JobsOrder::~JobsOrder()
+{
+	delete order;
 }

@@ -6,7 +6,6 @@
 * ===============================*/
 #include "App.h"
 #include "StateMainMenu.h"
-
 int main()
 {
 	//pobranie instancji aplikacji

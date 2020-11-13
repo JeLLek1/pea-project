@@ -29,14 +29,23 @@ void StateRunAlgorithm::process()
 		JobsOrder* order = App::getInstance()->getWeightedTardiness()->dynamicProgramming();
 		order->display();
 		delete order;
-		break;
 	}
 		break;
 	//algorytm B&B przeszukiwania wszerz
 	case StateMenuAlgorithms::MenuStatuses::B_AND_B_BFS:
+	{
+		JobsOrder* order = App::getInstance()->getWeightedTardiness()->BandBBFS();
+		order->display();
+		delete order;
+	}
 		break;
 	//algorytm B&B przeszukwiania typu najpierw najlepszy
 	case StateMenuAlgorithms::MenuStatuses::B_AND_B_BEST_FIRST:
+	{
+		JobsOrder* order = App::getInstance()->getWeightedTardiness()->BandBBestFirst();
+		order->display();
+		delete order;
+	}
 		break;
 	}
 

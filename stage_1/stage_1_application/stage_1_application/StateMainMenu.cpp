@@ -5,6 +5,7 @@
 #include "StateRandom.h"
 #include "StateDisplay.h"
 #include "StateMenuAlgorithms.h"
+#include "StateTimeTests.h"
 
 //mapowanie typów akcji i nazw wyœwietlanych na ekranie
 const std::map<StateMainMenu::MenuStatuses, std::string> StateMainMenu::menuStatusesNames = {
@@ -85,6 +86,7 @@ bool StateMainMenu::selectOtption()
 		break;
 	case MenuStatuses::TIME_TESTS:
 		//stan testów czasowych
+		App::getInstance()->pushState(new StateTimeTests());
 		break;
 	case MenuStatuses::EXIT:
 		//zakoñczenie obecnego stanu
