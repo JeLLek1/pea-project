@@ -115,5 +115,6 @@ unsigned int App::cinLine(unsigned int min)
 		std::cout << std::endl << "Podaj wartosc naturalna rowna conajmniej " << min << ": ";
 		std::cin >> value;
 	}
+	std::cin.ignore();
 	return value;
 }

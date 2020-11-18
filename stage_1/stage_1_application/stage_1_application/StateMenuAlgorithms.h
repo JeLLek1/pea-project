@@ -12,8 +12,8 @@ public:
 	enum class MenuStatuses : size_t {
 		BRUTE_FORCE,			//algorytm przegl¹du zupe³nego
 		DYNAMIC_PROGRAMMING,	//algorytm dynamicznego programowania
-		B_AND_B_BFS,			//algorytm B&B strategia przeszukiwania wszerz
-		B_AND_B_BEST_FIRST,		//algorytm B&B strategia przeszukiwania najpierw najlepszy
+		B_AND_B_DFS_1,			//algorytm B&B strategia przeszukiwania wszerz z pierwsz¹ funkcj¹ ograniczaj¹c¹ doln¹
+		B_AND_B_DFS_2,			//algorytm B&B strategia przeszukiwania wszerz z drug¹ funkcj¹ ograniczaj¹c¹ doln¹
 		BACK					//powrót
 	};
 private:

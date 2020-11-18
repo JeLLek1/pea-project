@@ -39,10 +39,10 @@ void StateRunAlgorithm::process()
 	}
 		break;
 	//algorytm B&B przeszukiwania wszerz
-	case StateMenuAlgorithms::MenuStatuses::B_AND_B_BFS:
+	case StateMenuAlgorithms::MenuStatuses::B_AND_B_DFS_1:
 	{
 		std::chrono::high_resolution_clock::time_point start = std::chrono::high_resolution_clock::now();
-		JobsOrder* order = App::getInstance()->getWeightedTardiness()->BandBBFS();
+		JobsOrder* order = App::getInstance()->getWeightedTardiness()->BandBDFS(WeightedTardiness::BandBlower1);
 		std::chrono::high_resolution_clock::time_point end = std::chrono::high_resolution_clock::now();
 		order->display();
 		std::cout << std::endl << "Czas wykonywania: " << 0.001 * std::chrono::duration_cast<std::chrono::microseconds>(end - start).count() << " ms";
@@ -50,10 +50,10 @@ void StateRunAlgorithm::process()
 	}
 		break;
 	//algorytm B&B przeszukwiania typu najpierw najlepszy
-	case StateMenuAlgorithms::MenuStatuses::B_AND_B_BEST_FIRST:
+	case StateMenuAlgorithms::MenuStatuses::B_AND_B_DFS_2:
 	{
 		std::chrono::high_resolution_clock::time_point start = std::chrono::high_resolution_clock::now();
-		JobsOrder* order = App::getInstance()->getWeightedTardiness()->BandBBestFirst();
+		JobsOrder* order = App::getInstance()->getWeightedTardiness()->BandBDFS(WeightedTardiness::BandBlower2);
 		std::chrono::high_resolution_clock::time_point end = std::chrono::high_resolution_clock::now();
 		order->display();
 		std::cout << std::endl << "Czas wykonywania: " << 0.001 * std::chrono::duration_cast<std::chrono::microseconds>(end - start).count() << " ms";

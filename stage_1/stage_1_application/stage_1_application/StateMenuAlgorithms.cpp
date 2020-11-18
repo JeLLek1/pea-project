@@ -8,8 +8,8 @@
 const std::map<StateMenuAlgorithms::MenuStatuses, std::string> StateMenuAlgorithms::menuStatusesNames = {
 	{MenuStatuses::BRUTE_FORCE, "Przeglad zupelny"},
 	{MenuStatuses::DYNAMIC_PROGRAMMING, "Programowanie dynamiczne"},
-	{MenuStatuses::B_AND_B_BFS, "B & B wszerz"},
-	{MenuStatuses::B_AND_B_BEST_FIRST, "B & B najpierw najlepszy"},
+	{MenuStatuses::B_AND_B_DFS_1, "B & B wglab - pierwsza funkcja ograniczaj¹ca"},
+	{MenuStatuses::B_AND_B_DFS_2, "B & B wglab - druga funkcja ograniczaj¹ca"},
 	{MenuStatuses::BACK, "Powrot"},
 };
 
@@ -79,8 +79,8 @@ bool StateMenuAlgorithms::selectOtption()
 	//odpalanie wybranego algorytmu
 	case MenuStatuses::BRUTE_FORCE:
 	case MenuStatuses::DYNAMIC_PROGRAMMING:
-	case MenuStatuses::B_AND_B_BFS:
-	case MenuStatuses::B_AND_B_BEST_FIRST:
+	case MenuStatuses::B_AND_B_DFS_1:
+	case MenuStatuses::B_AND_B_DFS_2:
 		App::getInstance()->pushState(new StateRunAlgorithm(this->currentStatus));
 		break;
 	//powrót do stanu poprzedniego

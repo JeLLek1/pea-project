@@ -62,7 +62,7 @@ bool StateLoadFile::loadFile(std::string name)
 			break;
 		}
 		//je¿eli uda³o siê wczytaæ elementy, dodawanie zadania (zadania maj¹ indeks 1 wiêkszy ni¿ indeks w tablicy)
-		weightedTardiness->pushJob(new Job(i + 1, processingTime, expectedEnd, priority));
+		weightedTardiness->pushJob(new Job(i, processingTime, expectedEnd, priority));
 		i++;
 	}
 	//zamkniêcie pliku

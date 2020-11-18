@@ -43,7 +43,7 @@ WeightedTardiness* RandomGenerator::generateWeightedTardiness(size_t size)
         //przedzia³ maksymalnego czasu przetwarzania
         std::uniform_int_distribution<unsigned int> dist(ptMax, ptSums);
         //tworzenie zadania i dodawanie do listy
-        problem->pushJob(new Job(i+1, processingTimes[i], dist(*this->gen), RandomGenerator::distWeight(*this->gen)));
+        problem->pushJob(new Job(i, processingTimes[i], dist(*this->gen), RandomGenerator::distWeight(*this->gen)));
     }
 
     return problem;

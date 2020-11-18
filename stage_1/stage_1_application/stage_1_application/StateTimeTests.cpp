@@ -29,8 +29,10 @@ void StateTimeTests::testsBruteForce(size_t maxSize)
 		for (size_t j = 0; j < StateTimeTests::test_count; j++) {
 			WeightedTardiness* problem = RandomGenerator::getInstance()->generateWeightedTardiness(i);
 			this->resetTimer();
-			problem->bruteforce();
+			JobsOrder* tmp = problem->bruteforce();
 			time += this->returnTime();
+			delete tmp;
+			delete problem;
 		}
 		std::cout << std::fixed << i << ";" << static_cast<double>(time) / StateTimeTests::test_count * 0.001 << std::endl;
 	}
@@ -46,8 +48,10 @@ void StateTimeTests::testsDP(size_t maxSize)
 		for (size_t j = 0; j < StateTimeTests::test_count; j++) {
 			WeightedTardiness* problem = RandomGenerator::getInstance()->generateWeightedTardiness(i);
 			this->resetTimer();
-			problem->dynamicProgramming();
+			JobsOrder* tmp = problem->dynamicProgramming();
 			time += (static_cast<double>(this->returnTime()) / StateTimeTests::test_count);
+			delete tmp;
+			delete problem;
 		}
 		std::cout << std::fixed << i << ";" << time * 0.001 << std::endl;
 	}
@@ -63,8 +67,10 @@ void StateTimeTests::testsBandBBFT(size_t maxSize)
 		for (size_t j = 0; j < StateTimeTests::test_count; j++) {
 			WeightedTardiness* problem = RandomGenerator::getInstance()->generateWeightedTardiness(i);
 			this->resetTimer();
-			problem->BandBBFS();
+			JobsOrder* tmp = problem->BandBDFS(WeightedTardiness::BandBlower1);
 			time += (static_cast<double>(this->returnTime()) / StateTimeTests::test_count);
+			delete tmp;
+			delete problem;
 		}
 		std::cout << std::fixed << i << ";" << time * 0.001 << std::endl;
 	}
@@ -80,8 +86,10 @@ void StateTimeTests::testsBandBBestFirst(size_t maxSize)
 		for (size_t j = 0; j < StateTimeTests::test_count; j++) {
 			WeightedTardiness* problem = RandomGenerator::getInstance()->generateWeightedTardiness(i);
 			this->resetTimer();
-			problem->BandBBestFirst();
+			JobsOrder* tmp = problem->BandBDFS(WeightedTardiness::BandBlower2);
 			time += (static_cast<double>(this->returnTime()) / StateTimeTests::test_count);
+			delete tmp;
+			delete problem;
 		}
 
 		std::cout << std::fixed << i << ";" << time*0.001 << std::endl;
@@ -93,7 +101,7 @@ void StateTimeTests::process()
 {
 	std::cout << "Podaj maksymalna ilosc elementow do testowania: ";
 	size_t maxSize = App::cinLine(1);
-	std::cout << "Wybierz algorytm (1-Przeglad zupelny, 2-DP, 3-B&B BFT, 4-B&B Best First): ";
+	std::cout << "Wybierz algorytm (1-Przeglad zupelny, 2-DP, 3-B&B DFS - lower bound 1, 4-B&B DFS - lower bound 2): ";
 	size_t algorithm = App::cinLine(1);
 	switch (algorithm) {
 	case 1:

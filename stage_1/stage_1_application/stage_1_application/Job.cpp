@@ -1,6 +1,6 @@
 #include "Job.h"
 //konstruktor (przypisanie wszystkich elementów)
-Job::Job(unsigned int number, unsigned int processingTime, unsigned int expectedEnd, unsigned int priority)
+Job::Job(size_t number, unsigned int processingTime, unsigned int expectedEnd, unsigned int priority)
 {
 	this->number = number;
 	this->processingTime = processingTime;
