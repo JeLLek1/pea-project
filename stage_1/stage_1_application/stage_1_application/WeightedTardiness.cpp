@@ -235,7 +235,7 @@ std::vector<size_t>* WeightedTardiness::orderJobs()
 	return tmp;
 }
 
-//Kolejne permutacje (dla B&B wg³¹b)
+//Kolejne permutacje (dla B&B w g³¹b)
 void WeightedTardiness::permutate(JobsOrder* best, std::vector<size_t>* currentPermutation, std::vector<size_t>* orderedJobs, size_t l, bool* nodesUsed, unsigned int currentTime, unsigned int totalLoos,
 	unsigned int (*lowerBoundFunction)(bool*, unsigned int, std::vector<size_t>*, WeightedTardiness*))
 {
@@ -309,7 +309,7 @@ unsigned int WeightedTardiness::upperBound() {
 	delete tmp;
 	return upperBound;
 }
-//B&B przeszukiwanie wg³¹b
+//B&B przeszukiwanie w g³¹b
 JobsOrder* WeightedTardiness::BandBDFS(unsigned int (*lowerBoundFunction)(bool*, unsigned int, std::vector<size_t>*, WeightedTardiness*))
 {
 	//struktura przechowuj¹ca najlepszy wynik

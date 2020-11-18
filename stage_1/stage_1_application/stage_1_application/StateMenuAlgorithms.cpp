@@ -8,8 +8,8 @@
 const std::map<StateMenuAlgorithms::MenuStatuses, std::string> StateMenuAlgorithms::menuStatusesNames = {
 	{MenuStatuses::BRUTE_FORCE, "Przeglad zupelny"},
 	{MenuStatuses::DYNAMIC_PROGRAMMING, "Programowanie dynamiczne"},
-	{MenuStatuses::B_AND_B_DFS_1, "B & B wglab - pierwsza funkcja ograniczaj¹ca"},
-	{MenuStatuses::B_AND_B_DFS_2, "B & B wglab - druga funkcja ograniczaj¹ca"},
+	{MenuStatuses::B_AND_B_DFS_1, "B & B w glab - pierwsza funkcja ograniczajaca"},
+	{MenuStatuses::B_AND_B_DFS_2, "B & B w glab - druga funkcja ograniczajaca"},
 	{MenuStatuses::BACK, "Powrot"},
 };
 

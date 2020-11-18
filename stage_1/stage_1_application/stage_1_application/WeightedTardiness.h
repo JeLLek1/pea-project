@@ -61,7 +61,7 @@ public:
 	JobsOrder* bruteforce();
 	//metoda g³ówna metody dynamicznego programowania
 	JobsOrder* dynamicProgramming();
-	//B&B Wg³¹b
+	//B&B W g³¹b
 	JobsOrder* BandBDFS(unsigned int (*lowerBoundFunction)(bool*, unsigned int, std::vector<size_t>*, WeightedTardiness*));
 	//pobranie zadania o danym indeksie dla innych klas
 	Job* getJob(size_t index);
