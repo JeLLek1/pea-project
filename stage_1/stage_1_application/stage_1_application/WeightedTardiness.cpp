@@ -116,27 +116,26 @@ void WeightedTardiness::dpSubsets(
 )
 {
 	if (index == subsetSize) {
+		unsigned int min = UINT_MAX;
+		unsigned int time = 0;
+		//szukamy podzbiorow {mask}\j z obliczeniami dla j
+		for (size_t j = 0; j < this->countJobs(); j++) {
+			size_t jSet = size_t(1) << j;
+			//je¿eli j nale¿y do obecnego podzbioru
+			if (jSet & mask) {
+				//usuwamy z podzbioru jSet
+				size_t subMask = mask ^ jSet;
+				//sprawdzanie czy znaleziono mniejsze minimum 
+				if (min > subSets[j][subMask].totalPunishment) {
+					min = subSets[j][subMask].totalPunishment;
+					time = subSets[j][subMask].totalTime;
+				}
+			}
+		}
 		//dla wszystkich elementów
 		for (size_t i = 0; i < this->countJobs(); i++) {
 			//je¿eli element nie nale¿y do obecnego podzbioru
 			if (!(((size_t)1 << i) & mask)) {
-				unsigned int min = UINT_MAX;
-				unsigned int time = 0;
-				size_t index = 0;
-				//szukamy podzbiorow {mask}\j z obliczeniami dla j
-				for (size_t j = 0; j < this->countJobs(); j++) {
-					size_t jSet = size_t(1) << j;
-					//je¿eli j nale¿y do obecnego podzbioru
-					if (jSet & mask) {
-						//usuwamy z podzbioru jSet
-						size_t subMask = mask ^ jSet;
-						//sprawdzanie czy znaleziono mniejsze minimum 
-						if (min > subSets[j][subMask].totalPunishment) {
-							min = subSets[j][subMask].totalPunishment;
-							time = subSets[j][subMask].totalTime;
-						}
-					}
-				}
 				//zapisanie czasu wykonywania dla znalezionego minimum
 				subSets[i][mask].totalTime = time+ this->jobs[i]->processingTime;
 				subSets[i][mask].totalPunishment = min + this->jobs[i]->getWeightedDelay(subSets[i][mask].totalTime);
@@ -305,7 +304,7 @@ unsigned int WeightedTardiness::upperBound() {
 	std::sort(tmp->begin(), tmp->end(), [this](size_t lhs, size_t rhs) -> bool {
 		return this->jobs[lhs]->processingTime < this->jobs[rhs]->processingTime;
 	});
-	unsigned int upperBound = this->getTotalWeightedLoos(tmp);
+	unsigned int upperBound = this->getTotalWeightedLoos(tmp)+1;
 	delete tmp;
 	return upperBound;
 }

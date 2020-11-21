@@ -23,9 +23,9 @@ void StateTimeTests::testsBruteForce(size_t maxSize)
 	std::numeric_limits< double > dbl;
 	std::cout.precision(dbl.max_digits10);
 	std::cout << "rozmiar;czas[ms]" << std::endl;
-	long long time = 0;
+	
 	for (size_t i = 1; i <= maxSize; i++) {
-		double time = 0;
+		long long time = 0;
 		for (size_t j = 0; j < StateTimeTests::test_count; j++) {
 			WeightedTardiness* problem = RandomGenerator::getInstance()->generateWeightedTardiness(i);
 			this->resetTimer();
@@ -44,16 +44,16 @@ void StateTimeTests::testsDP(size_t maxSize)
 	std::cout.precision(dbl.max_digits10);
 	std::cout << "rozmiar;czas[ms]" << std::endl;
 	for (size_t i = 1; i <= maxSize; i++) {
-		double time = 0;
+		long long time = 0;
 		for (size_t j = 0; j < StateTimeTests::test_count; j++) {
 			WeightedTardiness* problem = RandomGenerator::getInstance()->generateWeightedTardiness(i);
 			this->resetTimer();
 			JobsOrder* tmp = problem->dynamicProgramming();
-			time += (static_cast<double>(this->returnTime()) / StateTimeTests::test_count);
+			time += this->returnTime();
 			delete tmp;
 			delete problem;
 		}
-		std::cout << std::fixed << i << ";" << time * 0.001 << std::endl;
+		std::cout << std::fixed << i << ";" << static_cast<double>(time) / StateTimeTests::test_count * 0.001 << std::endl;
 	}
 }
 //testy czasowe B&B BFT
@@ -61,18 +61,23 @@ void StateTimeTests::testsBandBBFT(size_t maxSize)
 {
 	std::numeric_limits< double > dbl;
 	std::cout.precision(dbl.max_digits10);
-	std::cout << "rozmiar;czas[ms]" << std::endl;
+	std::cout << "rozmiar;czas[ms];min[ms];max[ms]" << std::endl;
 	for (size_t i = 1; i <= maxSize; i++) {
-		double time = 0;
+		long long time = 0;
+		long long minTime = LLONG_MAX;
+		long long maxTime = 0;
 		for (size_t j = 0; j < StateTimeTests::test_count; j++) {
 			WeightedTardiness* problem = RandomGenerator::getInstance()->generateWeightedTardiness(i);
 			this->resetTimer();
 			JobsOrder* tmp = problem->BandBDFS(WeightedTardiness::BandBlower1);
-			time += (static_cast<double>(this->returnTime()) / StateTimeTests::test_count);
+			long long timeTmp = this->returnTime();
+			if (timeTmp > maxTime) maxTime = timeTmp;
+			if (timeTmp < minTime) minTime = timeTmp;
+			time += timeTmp;
 			delete tmp;
 			delete problem;
 		}
-		std::cout << std::fixed << i << ";" << time * 0.001 << std::endl;
+		std::cout << std::fixed << i << ";" << static_cast<double>(time) / StateTimeTests::test_count * 0.001 << ";" << static_cast<double>(minTime) * 0.001<<";"<< static_cast<double>(maxTime) * 0.001 << std::endl;
 	}
 }
 //testy czasowe B&B Best First
@@ -80,19 +85,23 @@ void StateTimeTests::testsBandBBestFirst(size_t maxSize)
 {
 	std::numeric_limits< double > dbl;
 	std::cout.precision(dbl.max_digits10);
-	std::cout << "rozmiar;czas[ms]" << std::endl;
+	std::cout << "rozmiar;czas[ms];min[ms];max[ms]" << std::endl;
 	for (size_t i = 1; i <= maxSize; i++) {
-		double time = 0;
+		long long time = 0;
+		long long minTime = LLONG_MAX;
+		long long maxTime = 0;
 		for (size_t j = 0; j < StateTimeTests::test_count; j++) {
 			WeightedTardiness* problem = RandomGenerator::getInstance()->generateWeightedTardiness(i);
 			this->resetTimer();
 			JobsOrder* tmp = problem->BandBDFS(WeightedTardiness::BandBlower2);
-			time += (static_cast<double>(this->returnTime()) / StateTimeTests::test_count);
+			long long timeTmp = this->returnTime();
+			if (timeTmp > maxTime) maxTime = timeTmp;
+			if (timeTmp < minTime) minTime = timeTmp;
+			time += timeTmp;
 			delete tmp;
 			delete problem;
 		}
-
-		std::cout << std::fixed << i << ";" << time*0.001 << std::endl;
+		std::cout << std::fixed << i << ";" << static_cast<double>(time) / StateTimeTests::test_count * 0.001 << ";" << static_cast<double>(minTime) * 0.001 << ";" << static_cast<double>(maxTime) * 0.001 << std::endl;
 	}
 }
 
