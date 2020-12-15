@@ -1,0 +1,156 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="4.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <ItemGroup>
+    <Filter Include="Pliki źródłowe">
+      <UniqueIdentifier>{4FC737F1-C7A5-4376-A066-2A32D752A2FF}</UniqueIdentifier>
+      <Extensions>cpp;c;cc;cxx;c++;cppm;ixx;def;odl;idl;hpj;bat;asm;asmx</Extensions>
+    </Filter>
+    <Filter Include="Pliki nagłówkowe">
+      <UniqueIdentifier>{93995380-89BD-4b04-88EB-625FBE52EBFB}</UniqueIdentifier>
+      <Extensions>h;hh;hpp;hxx;h++;hm;inl;inc;ipp;xsd</Extensions>
+    </Filter>
+    <Filter Include="Pliki nagłówkowe\States">
+      <UniqueIdentifier>{e73bf4d2-4e3e-4cae-a6d3-1d822bff650f}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Pliki nagłówkowe\Neighborhoods">
+      <UniqueIdentifier>{ec0f02cd-c2f4-434a-bc19-3f36caa55a72}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Pliki źródłowe\Neighborhoods">
+      <UniqueIdentifier>{f8aba244-0faf-4dc8-b2d5-b0ed646f3124}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Pliki źródłowe\States">
+      <UniqueIdentifier>{16c04312-2d84-4bba-8929-22ff437bf587}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Pliki nagłówkowe\Algorithms">
+      <UniqueIdentifier>{cd2bc014-70b5-4700-b1bc-3ba39966320c}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Pliki źródłowe\Algorithms">
+      <UniqueIdentifier>{68145ce1-2e61-46a4-8f5b-46cf88e69c41}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Pliki nagłówkowe\Structures">
+      <UniqueIdentifier>{7d13c790-faab-4322-8d5d-ca4a831c39d6}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Pliki źródłowe\Structures">
+      <UniqueIdentifier>{94935850-b0dd-4151-970b-7cfb704cd00e}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Pliki zasobów">
+      <UniqueIdentifier>{67DA6AB6-F800-4c08-8B7A-83BB121AAD01}</UniqueIdentifier>
+      <Extensions>rc;ico;cur;bmp;dlg;rc2;rct;bin;rgs;gif;jpg;jpeg;jpe;resx;tiff;tif;png;wav;mfcribbon-ms</Extensions>
+    </Filter>
+  </ItemGroup>
+  <ItemGroup>
+    <ClCompile Include="stage_2.cpp">
+      <Filter>Pliki źródłowe</Filter>
+    </ClCompile>
+    <ClCompile Include="App.cpp">
+      <Filter>Pliki źródłowe</Filter>
+    </ClCompile>
+    <ClCompile Include="ANeighborhood.cpp">
+      <Filter>Pliki źródłowe\Neighborhoods</Filter>
+    </ClCompile>
+    <ClCompile Include="ExchangeNeighborhood.cpp">
+      <Filter>Pliki źródłowe\Neighborhoods</Filter>
+    </ClCompile>
+    <ClCompile Include="InsertNeigborhood.cpp">
+      <Filter>Pliki źródłowe\Neighborhoods</Filter>
+    </ClCompile>
+    <ClCompile Include="StateMainMenu.cpp">
+      <Filter>Pliki źródłowe\States</Filter>
+    </ClCompile>
+    <ClCompile Include="StateLoadFile.cpp">
+      <Filter>Pliki źródłowe\States</Filter>
+    </ClCompile>
+    <ClCompile Include="AState.cpp">
+      <Filter>Pliki źródłowe\States</Filter>
+    </ClCompile>
+    <ClCompile Include="Job.cpp">
+      <Filter>Pliki źródłowe\Structures</Filter>
+    </ClCompile>
+    <ClCompile Include="RandomGenerator.cpp">
+      <Filter>Pliki źródłowe\Structures</Filter>
+    </ClCompile>
+    <ClCompile Include="WeightedTardiness.cpp">
+      <Filter>Pliki źródłowe\Structures</Filter>
+    </ClCompile>
+    <ClCompile Include="StateRunAlgorithm.cpp">
+      <Filter>Pliki źródłowe\States</Filter>
+    </ClCompile>
+    <ClCompile Include="StateShowProblem.cpp">
+      <Filter>Pliki źródłowe\States</Filter>
+    </ClCompile>
+    <ClCompile Include="SimulatedAnnealing.cpp">
+      <Filter>Pliki źródłowe\Algorithms</Filter>
+    </ClCompile>
+    <ClCompile Include="StateDiversifi.cpp">
+      <Filter>Pliki źródłowe\States</Filter>
+    </ClCompile>
+    <ClCompile Include="StateStopCrit.cpp">
+      <Filter>Pliki źródłowe\States</Filter>
+    </ClCompile>
+    <ClCompile Include="StateChooseNeighborhood.cpp">
+      <Filter>Pliki źródłowe\States</Filter>
+    </ClCompile>
+    <ClCompile Include="JobsOrder.cpp">
+      <Filter>Pliki źródłowe\Algorithms</Filter>
+    </ClCompile>
+    <ClCompile Include="TabuSearch.cpp">
+      <Filter>Pliki źródłowe\Algorithms</Filter>
+    </ClCompile>
+  </ItemGroup>
+  <ItemGroup>
+    <ClInclude Include="App.h">
+      <Filter>Pliki nagłówkowe</Filter>
+    </ClInclude>
+    <ClInclude Include="ANeighborhood.h">
+      <Filter>Pliki nagłówkowe\Neighborhoods</Filter>
+    </ClInclude>
+    <ClInclude Include="ExchangeNeighborhood.h">
+      <Filter>Pliki nagłówkowe\Neighborhoods</Filter>
+    </ClInclude>
+    <ClInclude Include="InsertNeigborhood.h">
+      <Filter>Pliki nagłówkowe\Neighborhoods</Filter>
+    </ClInclude>
+    <ClInclude Include="StateLoadFile.h">
+      <Filter>Pliki nagłówkowe\States</Filter>
+    </ClInclude>
+    <ClInclude Include="StateMainMenu.h">
+      <Filter>Pliki nagłówkowe\States</Filter>
+    </ClInclude>
+    <ClInclude Include="AState.h">
+      <Filter>Pliki nagłówkowe\States</Filter>
+    </ClInclude>
+    <ClInclude Include="RandomGenerator.h">
+      <Filter>Pliki nagłówkowe\Structures</Filter>
+    </ClInclude>
+    <ClInclude Include="WeightedTardiness.h">
+      <Filter>Pliki nagłówkowe\Structures</Filter>
+    </ClInclude>
+    <ClInclude Include="Job.h">
+      <Filter>Pliki nagłówkowe\Structures</Filter>
+    </ClInclude>
+    <ClInclude Include="StateRunAlgorithm.h">
+      <Filter>Pliki nagłówkowe\States</Filter>
+    </ClInclude>
+    <ClInclude Include="StateShowProblem.h">
+      <Filter>Pliki nagłówkowe\States</Filter>
+    </ClInclude>
+    <ClInclude Include="SimulatedAnnealing.h">
+      <Filter>Pliki nagłówkowe\Algorithms</Filter>
+    </ClInclude>
+    <ClInclude Include="StateDiversifi.h">
+      <Filter>Pliki nagłówkowe\States</Filter>
+    </ClInclude>
+    <ClInclude Include="StateStopCrit.h">
+      <Filter>Pliki nagłówkowe\States</Filter>
+    </ClInclude>
+    <ClInclude Include="StateChooseNeighborhood.h">
+      <Filter>Pliki nagłówkowe\States</Filter>
+    </ClInclude>
+    <ClInclude Include="JobsOrder.h">
+      <Filter>Pliki nagłówkowe\Algorithms</Filter>
+    </ClInclude>
+    <ClInclude Include="TabuSearch.h">
+      <Filter>Pliki nagłówkowe\Algorithms</Filter>
+    </ClInclude>
+  </ItemGroup>
+</Project>
