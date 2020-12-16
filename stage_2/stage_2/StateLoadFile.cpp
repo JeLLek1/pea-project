@@ -74,8 +74,6 @@ bool StateLoadFile::loadFile(std::string name)
 		std::cout << std::endl << "Nie udalo sie odczytac danych!";
 		return false;
 	}
-	//wyœwietlenie wczytanej struktury
-	weightedTardiness->display();
 	return true;
 }
 
@@ -87,7 +85,8 @@ void StateLoadFile::process()
 	std::string fileName;
 	std::getline(std::cin, fileName);
 	//powodzenie wczytywania danych
-	if (this->loadFile(fileName)) {
+	if (StateLoadFile::loadFile(fileName)) {
+		App::getInstance()->getWeightedTardiness()->display();
 		std::cout << std::endl << "Pomyslnie zakonczono wczytywanie pliku";
 	}
 	//niepowodzenie wczytywania danych

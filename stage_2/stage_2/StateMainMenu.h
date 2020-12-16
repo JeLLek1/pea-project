@@ -15,6 +15,7 @@ class StateMainMenu : public AState
 		DIVERSIFI,			// w³¹czenie / wy³¹czenie dywersyfikacji
 		NEIGHORHOOD,		// wybór s¹siedztwa
 		RUN_ALGORITHM,		// testy czasów wykonywania
+		RUN_TESTS,			// testy czasów wykonywania
 		EXIT				// zakoñczenie stanu
 	};
 	// obecnie wyró¿niony typ akcji

@@ -2,6 +2,8 @@
 #include "RandomGenerator.h"
 #include <cmath>
 
+// opisy parametrów i metod znajduj¹ siê w plikach nag³ówkowych
+
 double SimulatedAnnealing::temperatureMinimum = 0.0001;
 
 SimulatedAnnealing::SimulatedAnnealing(WeightedTardiness* problem) {
@@ -17,6 +19,7 @@ SimulatedAnnealing::SimulatedAnnealing(WeightedTardiness* problem) {
     this->setFirstTemperature();
 }
 
+// g³ówna pêtla algorytmu
 void SimulatedAnnealing::run()
 {
     this->start = std::chrono::high_resolution_clock::now();
@@ -48,6 +51,7 @@ void SimulatedAnnealing::setFirstTemperature()
 
 void SimulatedAnnealing::setNextTemperature()
 {
+    // wyk³adnicza zmiana temperatury
     this->temperature *= 0.95;
 }
 

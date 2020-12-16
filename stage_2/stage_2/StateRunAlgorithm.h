@@ -2,7 +2,7 @@
 #include "AState.h"
 #include <chrono>
 /*
-Klasa stanu aplikacji odpowiedzialnego za testy czasowe
+Klasa stanu aplikacji odpowiedzialnego za uruchomienie algorytmów
 */
 class StateRunAlgorithm : public AState
 {
@@ -21,5 +21,6 @@ public:
 	//przetwarzanie wciœniêtych klawiszy
 	virtual bool handleInput(char key);
 
+	// metoda uruchamiaj¹ca algorytm wed³ug wybranych parametrów
 	void runAlgorithm(size_t choose);
 };

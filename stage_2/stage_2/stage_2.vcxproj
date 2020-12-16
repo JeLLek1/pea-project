@@ -156,6 +156,7 @@
     <ClCompile Include="StateRunAlgorithm.cpp" />
     <ClCompile Include="StateShowProblem.cpp" />
     <ClCompile Include="StateStopCrit.cpp" />
+    <ClCompile Include="StateTests.cpp" />
     <ClCompile Include="TabuSearch.cpp" />
     <ClCompile Include="WeightedTardiness.cpp" />
   </ItemGroup>
@@ -176,6 +177,7 @@
     <ClInclude Include="StateRunAlgorithm.h" />
     <ClInclude Include="StateShowProblem.h" />
     <ClInclude Include="StateStopCrit.h" />
+    <ClInclude Include="StateTests.h" />
     <ClInclude Include="TabuSearch.h" />
     <ClInclude Include="WeightedTardiness.h" />
   </ItemGroup>

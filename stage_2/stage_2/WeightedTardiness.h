@@ -1,8 +1,8 @@
 #pragma once
 #include <vector>
 #include "Job.h"
-#include "ANeighborhood.h"
 
+class ANeighborhood;
 /*
 	Klasa problemu szeregowania zadañ dla 
 */

@@ -72,9 +72,17 @@ void StateRunAlgorithm::runAlgorithm(size_t choose)
 		break;
 	}
 	case 2: {
-		this->resetTimer();
-		TabuSearch* algorithm = new TabuSearch(App::getInstance()->getWeightedTardiness());
-		algorithm->run();
+		TabuSearch* algorithm;
+		if (App::getInstance()->getWeightedTardiness()->getDiversification()) {
+			this->resetTimer();
+			algorithm = new TabuSearch(App::getInstance()->getWeightedTardiness());
+			algorithm->runDiversifi();
+		}
+		else {
+			this->resetTimer();
+			algorithm = new TabuSearch(App::getInstance()->getWeightedTardiness());
+			algorithm->run();
+		}
 		long long time = this->returnTime();
 		std::cout << "\nCzas wykonywania: " << 0.001 * time << " ms\n\n";
 		algorithm->bestOrder->display();

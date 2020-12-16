@@ -96,6 +96,9 @@
     <ClCompile Include="TabuSearch.cpp">
       <Filter>Pliki źródłowe\Algorithms</Filter>
     </ClCompile>
+    <ClCompile Include="StateTests.cpp">
+      <Filter>Pliki źródłowe\States</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="App.h">
@@ -151,6 +154,9 @@
     </ClInclude>
     <ClInclude Include="TabuSearch.h">
       <Filter>Pliki nagłówkowe\Algorithms</Filter>
+    </ClInclude>
+    <ClInclude Include="StateTests.h">
+      <Filter>Pliki nagłówkowe\States</Filter>
     </ClInclude>
   </ItemGroup>
 </Project>

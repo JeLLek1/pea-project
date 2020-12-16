@@ -24,8 +24,10 @@ public:
 	//pobranie instancji singletonu
 	static RandomGenerator* getInstance();
 
+	// generowanie losowej liczby typu double
 	double getRandomDouble(double min, double max);
 
+	// generowanie losowej liczby ca³kowitej o podanym typie
 	template< class IntType = int >
 	IntType getRandom(IntType min, IntType max);
 };
