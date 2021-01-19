@@ -47,6 +47,8 @@ public:
 	virtual void applyBest(std::vector<size_t>*& order, WeightedTardiness* problem) = 0;
 	// sprawdzenie, czy obecnie przetwarzany s¹siad jest w liœcie tabu
 	virtual bool notInTabu(std::vector<std::vector<unsigned>>& tabu) = 0;
+	// zerowanie elementów zawartych w tablicy kar
+	virtual void punischClear(std::vector<std::vector<unsigned>>& punishment) = 0;
 
 	virtual ~ANeighborhood();
 };

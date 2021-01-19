@@ -6,6 +6,8 @@
 #include "App.h"
 #include "StateLoadFile.h"
 #include "ANeighborhood.h"
+#include "ExchangeNeighborhood.h"
+#include "InsertNeigborhood.h"
 #include "SimulatedAnnealing.h"
 #include "TabuSearch.h"
 
@@ -68,28 +70,21 @@ void StateTests::process()
 {
     WeightedTardiness* problem = App::getInstance()->getWeightedTardiness();
     bool canBeRuuded = true;
-    if (problem->getNeighborhood() == nullptr) {
-        std::cout << "Nalezy najpierw wybrac typ sasiedztwa\n";
-        canBeRuuded = false;
-    }
     if (problem->getStopSeconds() < 1) {
         std::cout << "Nalezy najpierw wprowadzic kryterium stopu\n";
         canBeRuuded = false;
     }
 
     if (canBeRuuded) {
-        std::cout << "Ilosc elementow problemu: " << problem->countJobs();
-        std::cout << "\nTyp sasiedztwa: " << ANeighborhood::typeNames.at(problem->getNeighborhood()->getType());
         std::cout << "\nKryterium stopu: " << problem->getStopSeconds();
-        std::cout << "\nDywersyfikacja: " << (problem->getDiversification() ? "Tak" : "Nie");
         std::cout << "\nPodaj nazwe pliku rozwiazan: ";
         std::string fileName;
         std::getline(std::cin, fileName);
-        std::cout << "Podaj nazwe plikow problemow [np instances\\wt_40_]";
-        std::cout << "\nDo nazwy pliku zostanie doklejone xxx.txt gdzie xxx to numer zadania: ";
-        std::getline(std::cin, this->nameProblems);
         if (this->loadFile(fileName)) {
             std::cout << std::endl << "Pomyslnie zakonczono wczytywanie pliku";
+            std::cout << "Podaj nazwe plikow problemow [np instances\\wt_40_]";
+            std::cout << "\nDo nazwy pliku zostanie doklejone xxx.txt gdzie xxx to numer zadania: ";
+            std::getline(std::cin, this->nameProblems);
             unsigned errorNr = this->runAlgorithms();
             if (errorNr > 0) {
                 std::cout << "\nWystapil problem podczas wczytywania problemu " << errorNr;
@@ -113,60 +108,89 @@ bool StateTests::handleInput(char key)
 // w formacie csv (Wystarczy skopiowaæ do pliku i wczytaæ przez arkusz kalkulacyjny)
 unsigned StateTests::runAlgorithms()
 {
-    // testy Sumulowania Wy¿a¿ania
-    std::cout << "\n\nuruchamianie testow SA:";
-    std::cout << "\nnr;najlepszy znaleziony;najlepszy znany;czas [ms];blad wzgledny";
+    WeightedTardiness* problem = App::getInstance()->getWeightedTardiness();
+
+    // przechowanie typu s¹siedztwa
+    ANeighborhood* tmpNeighborhood = problem->getNeighborhood();
+    std::vector< ANeighborhood*> testNeighborhoods = { new ExchangeNeighborhood, new InsertNeigborhood};
     long long time = 0;
     SimulatedAnnealing* sa;
     TabuSearch* ts;
-    WeightedTardiness* problem;
-    for (auto const& i : (*this->results)) {
-        std::string filename = std::to_string(i->nr);
-        filename = std::string(3 - filename.length(), '0') + filename + ".txt";
-        if (!StateLoadFile::loadFile(this->nameProblems+filename)) {
-            return i->nr;
+    //dla ka¿dego typu s¹siedztwa
+    for (auto neigbor : testNeighborhoods) {
+        problem->setNeighborhood(neigbor);
+        // testy Sumulowania Wy¿a¿ania
+        std::cout << "\n\nuruchamianie testow SA, sasiedztwo: " << ANeighborhood::typeNames.at(neigbor->getType());
+        std::cout << "\nnr;najlepszy znaleziony;najlepszy znany;czas [ms];blad wzgledny";
+        for (auto const& i : (*this->results)) {
+            std::string filename = std::to_string(i->nr);
+            filename = std::string(3 - filename.length(), '0') + filename + ".txt";
+            if (!StateLoadFile::loadFile(this->nameProblems + filename)) {
+                return i->nr;
+            }
+            this->resetTimer();
+            sa = new SimulatedAnnealing(problem);
+            sa->run();
+            time = this->returnTime();
+            std::cout << std::fixed << "\n" << i->nr << ";"
+                << sa->bestOrder->totalLoos << ";"
+                << i->tardiness << ";"
+                << static_cast<double>(time) * 0.001 << ";"
+                << std::abs(static_cast<double>(sa->bestOrder->totalLoos - i->tardiness)) / i->tardiness;
+            if (sa->bestOrder->totalLoos < i->tardiness) std::cout << "; lepszy";
+            delete sa;
         }
-        problem = App::getInstance()->getWeightedTardiness();
-        this->resetTimer();
-        sa = new SimulatedAnnealing(problem);
-        sa->run();
-        time = this->returnTime();
-        std::cout << std::fixed << "\n" << i->nr << ";"
-            << sa->bestOrder->totalLoos << ";"
-            << i->tardiness << ";"
-            << static_cast<double>(time) * 0.001 << ";"
-            << std::abs(static_cast<double>(sa->bestOrder->totalLoos - i->tardiness)) / i->tardiness;
-        delete sa;
-    }
 
-    // testy Tabu Search
-    std::cout << "\n\nuruchamianie testow TS:";
-    std::cout << "\nnr;najlepszy znaleziony;najlepszy znany;czas [ms];blad wzgledny";
-    for (auto const& i : (*this->results)) {
-        std::string filename = std::to_string(i->nr);
-        filename = std::string(3 - filename.length(), '0') + filename + ".txt";
-        if (!StateLoadFile::loadFile(this->nameProblems + filename)) {
-            return i->nr;
-        }
-        problem = App::getInstance()->getWeightedTardiness();
-        if (problem->getDiversification()) {
+        // testy Tabu Search bez dywersyfikacji
+        std::cout << "\n\nuruchamianie testow TS z dywersyfikacja, sasiedztwo: " << ANeighborhood::typeNames.at(neigbor->getType());
+        std::cout << "\nnr;najlepszy znaleziony;najlepszy znany;czas [ms];blad wzgledny";
+        for (auto const& i : (*this->results)) {
+            std::string filename = std::to_string(i->nr);
+            filename = std::string(3 - filename.length(), '0') + filename + ".txt";
+            if (!StateLoadFile::loadFile(this->nameProblems + filename)) {
+                return i->nr;
+            }
             this->resetTimer();
             ts = new TabuSearch(problem);
             ts->runDiversifi();
             time = this->returnTime();
-        } else {
+
+            std::cout << std::fixed << "\n" << i->nr << ";"
+                << ts->bestOrder->totalLoos << ";"
+                << i->tardiness << ";"
+                << static_cast<double>(time) * 0.001 << ";"
+                << std::abs(static_cast<double>(ts->bestOrder->totalLoos - i->tardiness)) / i->tardiness;
+
+            if (ts->bestOrder->totalLoos < i->tardiness) std::cout << "; lepszy";
+            delete ts;
+        }
+
+        // testy Tabu Search z dywersyfikacj¹
+        std::cout << "\n\nuruchamianie testow TS bez dywersyfikacji, sasiedztwo: " << ANeighborhood::typeNames.at(neigbor->getType());
+        std::cout << "\nnr;najlepszy znaleziony;najlepszy znany;czas [ms];blad wzgledny";
+        for (auto const& i : (*this->results)) {
+            std::string filename = std::to_string(i->nr);
+            filename = std::string(3 - filename.length(), '0') + filename + ".txt";
+            if (!StateLoadFile::loadFile(this->nameProblems + filename)) {
+                return i->nr;
+            }
+
             this->resetTimer();
             ts = new TabuSearch(problem);
             ts->run();
             time = this->returnTime();
+
+            std::cout << std::fixed << "\n" << i->nr << ";"
+                << ts->bestOrder->totalLoos << ";"
+                << i->tardiness << ";"
+                << static_cast<double>(time) * 0.001 << ";"
+                << std::abs(static_cast<double>(ts->bestOrder->totalLoos - i->tardiness)) / i->tardiness;
+
+            if (ts->bestOrder->totalLoos < i->tardiness) std::cout << "; lepszy";
+            delete ts;
         }
-        std::cout << std::fixed << "\n" << i->nr << ";"
-            << ts->bestOrder->totalLoos << ";"
-            << i->tardiness << ";"
-            << static_cast<double>(time) * 0.001 << ";"
-            << std::abs(static_cast<double>(ts->bestOrder->totalLoos - i->tardiness)) / i->tardiness;
-        delete ts;
     }
+    problem->setNeighborhood(nullptr);
     return 0;
 }
 

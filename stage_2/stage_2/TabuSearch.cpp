@@ -87,6 +87,7 @@ void TabuSearch::runDiversifi()
             delete this->currentOrder;
             this->currentOrder = problem->randomOrder();
             this->currentBestLoos = problem->getTotalWeightedLoos(this->currentOrder);
+            this->neighborhood->punischClear(this->punishment);
             if (this->currentBestLoos < this->bestOrder->totalLoos) {
                 this->bestOrder->setOrder(this->currentOrder, this->currentBestLoos);
             }

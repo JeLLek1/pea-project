@@ -124,6 +124,13 @@ bool InsertNeigborhood::notInTabu(std::vector<std::vector<unsigned>>& tabu)
     return tabu[this->changeX][this->changeY] == 0;
 }
 
+void InsertNeigborhood::punischClear(std::vector<std::vector<unsigned>>& punishment)
+{
+    for (size_t x = 0; x < punishment.size(); x++) {
+        std::fill(punishment[x].begin(), punishment[x].end(), 0);
+    }
+}
+
 InsertNeigborhood::~InsertNeigborhood()
 {
     if (this->tmpOrder != nullptr) {

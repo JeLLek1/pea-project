@@ -37,6 +37,7 @@ public:
     virtual unsigned int getLoosWithPunish(std::vector<std::vector<unsigned>>& punishment);
     virtual void applyBest(std::vector<size_t>*& order, WeightedTardiness* problem);
     virtual bool notInTabu(std::vector<std::vector<unsigned>>& tabu);
+    virtual void punischClear(std::vector<std::vector<unsigned>>& punishment);
 
     ~ExchangeNeighborhood();
 };

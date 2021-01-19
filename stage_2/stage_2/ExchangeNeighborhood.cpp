@@ -118,6 +118,13 @@ bool ExchangeNeighborhood::notInTabu(std::vector<std::vector<unsigned>>& tabu)
     return tabu[this->changeX][this->changeY] == 0;
 }
 
+void ExchangeNeighborhood::punischClear(std::vector<std::vector<unsigned>>& punishment)
+{
+    for (size_t x = 0; x < punishment.size() - 1; x++) {
+        std::fill(punishment[x].begin()+ x + 1, punishment[x].end(), 0);
+    }
+}
+
 ExchangeNeighborhood::~ExchangeNeighborhood()
 {
     if (this->tmpOrder != nullptr) {

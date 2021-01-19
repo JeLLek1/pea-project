@@ -1,10 +1,11 @@
 #include "SimulatedAnnealing.h"
 #include "RandomGenerator.h"
 #include <cmath>
+#include <iostream>
 
 // opisy parametrów i metod znajduj¹ siê w plikach nag³ówkowych
 
-double SimulatedAnnealing::temperatureMinimum = 0.0001;
+double SimulatedAnnealing::temperatureMinimum = 0.01;
 
 SimulatedAnnealing::SimulatedAnnealing(WeightedTardiness* problem) {
     this->problem = problem;
@@ -37,6 +38,7 @@ void SimulatedAnnealing::run()
                 }
             }
         }
+
         this->setNextTemperature();
         end = std::chrono::high_resolution_clock::now();
     } while (
@@ -46,13 +48,13 @@ void SimulatedAnnealing::run()
 
 void SimulatedAnnealing::setFirstTemperature()
 {
-    this->temperature = 200.0;
+    this->temperature = 10000.0;
 }
 
 void SimulatedAnnealing::setNextTemperature()
 {
     // wyk³adnicza zmiana temperatury
-    this->temperature *= 0.95;
+    this->temperature *= 0.99;
 }
 
 bool SimulatedAnnealing::shouldAssignCurrent(unsigned int loos)
@@ -60,7 +62,6 @@ bool SimulatedAnnealing::shouldAssignCurrent(unsigned int loos)
     if (loos < this->currentBestLoos)
         return true;
 
-    double test = std::exp((loos - this->currentBestLoos) / this->temperature);
     if (std::exp(-  ((loos - this->currentBestLoos) / this->temperature)) > RandomGenerator::getInstance()->getRandomDouble(0.0, 1.0))
         return true;
 
