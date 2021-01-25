@@ -10,6 +10,7 @@
 #include "StateCrossRate.h"
 #include "StateMutType.h"
 #include "StateCrossType.h"
+#include "StateTests.h"
 
 //mapowanie typów akcji i nazw wyœwietlanych na ekranie
 const std::map<StateMainMenu::MenuStatuses, std::string> StateMainMenu::menuStatusesNames = {
@@ -22,6 +23,7 @@ const std::map<StateMainMenu::MenuStatuses, std::string> StateMainMenu::menuStat
 	{MenuStatuses::MUT_TYPE, "Wybierz typ mutacji"},
 	{MenuStatuses::CROS_TYPE, "Wybierz typ krzyzowania"},
 	{MenuStatuses::RUN_ALGORITHM, "Uruchom algorytm"},
+	{MenuStatuses::RUN_TESTS, "Uruchom testy algorytmu"},
 	{MenuStatuses::EXIT, "Zakoncz program"}
 };
 
@@ -102,6 +104,9 @@ bool StateMainMenu::selectOtption()
 		break;
 	case MenuStatuses::RUN_ALGORITHM:
 		App::getInstance()->pushState(new StateRunAlgorithm());
+		break;
+	case MenuStatuses::RUN_TESTS:
+		App::getInstance()->pushState(new StateTests());
 		break;
 	case MenuStatuses::EXIT:
 		return false;

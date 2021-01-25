@@ -18,6 +18,7 @@ class StateMainMenu : public AState
 		MUT_TYPE,			// typu mutacji
 		CROS_TYPE,			// typ krzy¿owania
 		RUN_ALGORITHM,		// uruchom algorytm
+		RUN_TESTS,			// testy algorytmu
 		EXIT				// zakoñczenie stanu
 	};
 	// obecnie wyró¿niony typ akcji
